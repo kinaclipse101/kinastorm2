@@ -1,4 +1,4 @@
-﻿using RoR2.ExpansionManagement;
+using RoR2.ExpansionManagement;
 using RoR2.ContentManagement;
 using System;
 using System.Collections;
@@ -187,6 +187,7 @@ namespace SS2
                     return VanillaSurvivorModule.InitializeVanillaSurvivorContentPieces(main);
                 },
                 LoadFromAssetBundles,
+                SS2Config.RegisterToModSettingsManager
             };
 
             _fieldAssignDispatchers = new Func<IEnumerator>[]
@@ -392,6 +393,12 @@ namespace SS2
 
             public static ItemDef BabyToys;
 
+            public static ItemDef ToySoldiers;
+
+            public static ItemDef ToyHelper;
+
+            public static ItemDef SpiderverseHelper;
+
             public static ItemDef X4;
 
             public static ItemDef BaneFlask;
@@ -418,6 +425,7 @@ namespace SS2
 
             // public static ItemDef WickedStaff;
             public static ItemDef WeatherRadio;
+
             public static ItemDef LuckyPup;
 
             //blessings
@@ -441,6 +449,7 @@ namespace SS2
             public static ItemDef StackShieldGate;
             public static ItemDef StackHitList;
             public static ItemDef PrimalBirthright;
+            public static ItemDef BirthrightChimeraHelper;
 
 
             public static ItemDef GalvanicCore;
@@ -651,6 +660,8 @@ namespace SS2
             public static BuffDef bdBanditTranquilizer;
 
             public static BuffDef bdBanditSleep;
+
+            public static BuffDef bdToy;
 
             public static BuffDef bdAcridArmorCorrison;
 
