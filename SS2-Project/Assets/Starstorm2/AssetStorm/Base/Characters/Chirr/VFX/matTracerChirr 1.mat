@@ -95,7 +95,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _InternalSimpleBlendMode: 0
+    - _InternalSimpleBlendMode: 1
     - _InvFade: 1
     - _Metallic: 0
     - _Mode: 0
