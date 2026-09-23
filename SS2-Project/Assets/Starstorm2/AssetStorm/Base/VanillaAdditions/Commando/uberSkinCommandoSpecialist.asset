@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05c26ef4e3114a64892825359a123b70, type: 3}
   m_Name: uberSkinCommandoSpecialist
   m_EditorClassIdentifier: 
-  targetSkinDef: {fileID: 11400000, guid: 3023908c6cda07b4fa1674526499b386, type: 2}
+  targetSkinDef: {fileID: 11400000, guid: d1ed1b7ed07aecb42947008529458b05, type: 2}
   baseSkins:
   - _asset: {fileID: 0}
     _address: 5dab33025bb0e3043a28f65e49bf7def
@@ -26,7 +26,7 @@ MonoBehaviour:
   - renderer:
       reference: {fileID: 0}
       transformPath: CommandoMesh
-    defaultMaterial: {fileID: 2100000, guid: 8dd677474a6180f4fafd70cc96bc3a6e, type: 2}
+    defaultMaterial: {fileID: 2100000, guid: b0fe34e9a7e5d87d39f6e66afe618cf2, type: 2}
     defaultShadowCastingMode: 1
     ignoreOverlays: 0
     hideOnDeath: 0
@@ -34,7 +34,7 @@ MonoBehaviour:
   - renderer:
       reference: {fileID: 0}
       transformPath: CommandoArmature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/hand.r/gun.r/GunMesh
-    defaultMaterial: {fileID: 2100000, guid: b0fe34e9a7e5d87d39f6e66afe618cf2, type: 2}
+    defaultMaterial: {fileID: 2100000, guid: e9f4298c511799772b1fe0a1010073e7, type: 2}
     defaultShadowCastingMode: 1
     ignoreOverlays: 0
     hideOnDeath: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
   - renderer:
       reference: {fileID: 0}
       transformPath: CommandoArmature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l/hand.l/gun.l/GunMesh.001
-    defaultMaterial: {fileID: 2100000, guid: b0fe34e9a7e5d87d39f6e66afe618cf2, type: 2}
+    defaultMaterial: {fileID: 2100000, guid: e9f4298c511799772b1fe0a1010073e7, type: 2}
     defaultShadowCastingMode: 1
     ignoreOverlays: 0
     hideOnDeath: 0
@@ -52,16 +52,14 @@ MonoBehaviour:
   - renderer:
       reference: {fileID: 0}
       transformPath: CommandoMesh
-    mesh: {fileID: 4300000, guid: f68c3d18a2b127348ae10eda9c6c40c2, type: 2}
-  - renderer:
-      reference: {fileID: 0}
-      transformPath: CommandoArmature/ROOT/base/stomach/chest/upper_arm.l/lower_arm.l/hand.l/gun.l/GunMesh.001
-    mesh: {fileID: 4300000, guid: 15fa1dbf6b5ea3d45a86ca0be12dc373, type: 2}
-  - renderer:
-      reference: {fileID: 0}
-      transformPath: CommandoArmature/ROOT/base/stomach/chest/upper_arm.r/lower_arm.r/hand.r/gun.r/GunMesh
-    mesh: {fileID: 4300000, guid: 15fa1dbf6b5ea3d45a86ca0be12dc373, type: 2}
-  projectileGhostReplacements: []
+    mesh: {fileID: 1151781660555035554, guid: a601bd540b5cf7e919164fa28da76694, type: 3}
+  projectileGhostReplacements:
+  - projectilePrefab:
+      _asset: {fileID: 0}
+      _address: d7fd2c1b9b8e8cb479f17584ea845500
+      _useDirectReference: 0
+    projectileGhostReplacementPrefab: {fileID: 6047370094585215884, guid: d9ac29345779c7a7691d84a3e611af27,
+      type: 3}
   minionSkinReplacements: []
   lightReplacements: []
   vfxOverrides: []

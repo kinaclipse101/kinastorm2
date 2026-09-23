@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SkinCommandoSpecialist
   m_EditorClassIdentifier: 
   baseSkins: []
-  icon: {fileID: 21300000, guid: 6edab222624418944931e52fe28193b8, type: 3}
+  icon: {fileID: 21300000, guid: d70ab639240ae8d6fa5d83dfe94ca878, type: 3}
   nameToken: SS2_SKIN_COMMANDO_SPECIALIST
   unlockableName: 
   unlockableDef: {fileID: 11400000, guid: 9510ffc6784d375fc8055003c66b514b, type: 2}

@@ -16,14 +16,17 @@ MonoBehaviour:
   displayModelPath: Prefabs/NullModel
   displayModelPrefab: {fileID: 0}
   hidden: 0
-  achievementIcon: {fileID: 21300000, guid: 6edab222624418944931e52fe28193b8, type: 3}
+  achievementIcon: {fileID: 21300000, guid: d70ab639240ae8d6fa5d83dfe94ca878, type: 3}
+  requiredExpansion: {fileID: 0}
   achievementCondition:
-    assemblyQualifiedName: SS2.Unlocks.VanillaSurvivors.CommandoGrandMasteryAchievement,
+    assemblyQualifiedName: SS2.Unlocks.VanillaSurvivors.CommandoSpecialistAchievement,
       Starstorm2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   serverAchievementCondition:
-    assemblyQualifiedName: 
-  achievementNameToken: SS2_ACHIEVEMENT_COMMANDO_GRANDMASTERY_NAME
-  achievementDescriptionToken: SS2_ACHIEVEMENT_COMMANDO_GRANDMASTERY_DESC
+    assemblyQualifiedName: SS2.Unlocks.VanillaSurvivors.CommandoSpecialistAchievement+CommandoSpecialistServerAchievement,
+      Starstorm2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  achievementNameToken: SS2_ACHIEVEMENT_COMMANDO_SPECIALIST_NAME
+  achievementDescriptionToken: SS2_ACHIEVEMENT_COMMANDO_SPECIALIST_DESC
+  coinReward: 0
   _preRequisiteAchievement:
     unlockableDef: {fileID: 0}
     achievementIdentifier: 
