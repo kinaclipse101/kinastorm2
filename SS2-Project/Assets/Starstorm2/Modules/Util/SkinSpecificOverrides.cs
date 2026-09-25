@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using HG;
 using UnityEngine;
 using RoR2;
@@ -6,7 +7,10 @@ using RoR2.Skills;
 using UnityEngine.AddressableAssets;
 using RoR2.Projectile;
 using UnityEngine.Networking;
+using UnityEngine.Rendering;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using AffixBeadAttachment = On.RoR2.AffixBeadAttachment;
+using Object = UnityEngine.Object;
 
 namespace SS2.Modules
 {
@@ -37,15 +41,22 @@ namespace SS2.Modules
         private static GameObject lunarWispMinigunTracer;
         private static Material matLunarGolem;
         
+        //chirr,.,.
+        private static GameObject chirrIsopodWingPrefab;
+        private static Material chirrIsopodWingMat;
+        private static int isopodLocalSkinIndex = -1;
+        
+        //projectile catalog for FMJRampingPrefab or others ./,..
         [SystemInitializer(typeof(ProjectileCatalog))]
         public static void Initialize()
         {
             LoadBasePrefabs();
             
-            //Generic Hooks (Currently all Commando - subject to change)
+            //Generic Hooks
             On.EntityStates.GenericProjectileBaseState.FireProjectile += GPBS_FireProjectile;
             On.EntityStates.GenericBulletBaseState.FireBullet += GBBS_FireBullet;
             CharacterBody.onBodyStartGlobal += BodyStartGlobal;
+            On.RoR2.ModelSkinController.Awake += ModelSkinControllerOnAwake;
 
             //MUL-T specific
             On.EntityStates.Toolbot.BaseNailgunState.FireBullet += BaseNailgunState_FireBullet;
@@ -53,9 +64,49 @@ namespace SS2.Modules
             On.EntityStates.Toolbot.ToolbotDualWield.OnEnter += ToolbotDualWield_OnEnter;
             On.EntityStates.Toolbot.ToolbotDash.OnEnter += ToolbotDash_OnEnter;
             //On.EntityStates.Toolbot.ToolbotDash.OnExit += ToolbotDash_OnExit;
+        }
 
-            //merc specific - to my knowledge this one doesnt work .,., wolfoqol already adds support for it so oh wells !! 
-            //On.RoR2.SkinDef.Apply += ModifiyLighting;
+        private static void ModelSkinControllerOnAwake(On.RoR2.ModelSkinController.orig_Awake orig, ModelSkinController self)
+        {
+            orig(self);
+
+            if (self.gameObject.name == "mdlChirr")
+            {
+                for (int i = 0; i < self.skins.Length; i++)
+                {
+                    if (self.skins[i].nameToken != "SS2_SKIN_CHIRR_ISOPOD") continue;
+                    
+                    isopodLocalSkinIndex = i;
+                    break;
+                }
+
+                if (self.currentSkinIndex == isopodLocalSkinIndex)
+                {
+                    Transform isopodTransform = self.gameObject.transform.Find("ChirrIsopodWings");
+                    if (isopodTransform)
+                    {
+                        isopodTransform.gameObject.SetActive(true);
+                        if (isopodTransform.gameObject.TryGetComponent(out SkinnedMeshRenderer skinnedMeshRenderer))
+                        {
+                            skinnedMeshRenderer.enabled = true;
+                        }
+                    }
+                }
+                
+                self.onSkinApplied += i =>
+                {
+                    bool enableWings = isopodLocalSkinIndex == i;
+                    Transform isopodTransform = self.gameObject.transform.Find("ChirrIsopodWings");
+                    if (isopodTransform)
+                    {
+                        isopodTransform.gameObject.SetActive(enableWings);
+                        if (isopodTransform.gameObject.TryGetComponent(out SkinnedMeshRenderer skinnedMeshRenderer))
+                        {
+                            skinnedMeshRenderer.enabled = enableWings;
+                        }
+                    }
+                };
+            }
         }
 
         public static void LoadBasePrefabs()
@@ -76,7 +127,6 @@ namespace SS2.Modules
             
             //commando 
             FMJRampingPrefab = ProjectileCatalog.GetProjectilePrefab(ProjectileCatalog.FindProjectileIndex("FMJRamping"));
-            SS2Log.Debug($"fmj {FMJRampingPrefab}");
             Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Commando/TracerCommandoShotgun.prefab").Completed += handle =>
             {
                 tracerCommandoShotgun = handle.Result;
@@ -103,6 +153,10 @@ namespace SS2.Modules
             tracerCommandoShotgunSpecialist = SS2Assets.LoadAsset<GameObject>("TracerCommandoShotgunSpecialist", SS2Bundle.Vanilla);
             muzzleflashCommandoSpecialist = SS2Assets.LoadAsset<GameObject>("MuzzleflashCommandoSpecialist", SS2Bundle.Vanilla);
             hitsparkCommandoSpecialist = SS2Assets.LoadAsset<GameObject>("HitsparkCommandoShotgunSpecialist", SS2Bundle.Vanilla);
+            
+            //chirr ,..,
+            chirrIsopodWingPrefab = SS2Assets.LoadAsset<GameObject>("ChirrIsopodWings", SS2Bundle.Chirr);
+            chirrIsopodWingMat = SS2Assets.LoadAsset<Material>("matChirrIsopodWing", SS2Bundle.Chirr);
         }
         
         private static string GetSkinName(CharacterBody body)
@@ -118,7 +172,6 @@ namespace SS2.Modules
                 if (self.projectilePrefab == FMJRampingPrefab)
                 {
                     string skinName = GetSkinName(self.characterBody);
-                    
                     if (skinName == "SS2_SKIN_COMMANDO_VESTIGE")
                     {
                         GameObject projectileInstance = self.projectilePrefab;
@@ -131,7 +184,6 @@ namespace SS2.Modules
                     }
                     else if (skinName == "SS2_SKIN_COMMANDO_SPECIALIST")
                     {
-                        SS2Log.Debug("ran fmj specialist");
                         GameObject projectileInstance = self.projectilePrefab;
                         ProjectileController pc = projectileInstance.GetComponent<ProjectileController>();
                         ProjectileOverlapAttack poa = projectileInstance.GetComponent<ProjectileOverlapAttack>();
