@@ -35,7 +35,7 @@ MonoBehaviour:
       reference: {fileID: 8483864543906087496, guid: e2a9bcebef4867e4490dda09d2cf7bbe,
         type: 3}
       transformPath: 
-    mesh: {fileID: -4138562714495136216, guid: 8e539f194535e31148ce15dddb774ef1, type: 3}
+    mesh: {fileID: -4138562714495136216, guid: 7d15e6ca275b5585c8a48421b3aee3a2, type: 3}
   projectileGhostReplacements: []
   minionSkinReplacements: []
   lightReplacements: []

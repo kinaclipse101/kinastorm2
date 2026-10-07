@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using MonoMod.RuntimeDetour;
@@ -39,7 +40,7 @@ namespace SS2.Modules
         
         private static DynamicSkinManager _DynamicSkinManager = new();
         
-        private static Modification BeeChirrSkinAntennaRootRModification;
+        private static Modification BeeChirrSkinAntennaRootModification;
         private static Modification BeeChirrSkinParticleBodyModification;
         private static Modification OrcidChirrAntennaRootOrchidModification;
         private static Modification ChirrDemonParticleTorsoLowerModification;
@@ -65,7 +66,7 @@ namespace SS2.Modules
             On.EntityStates.Toolbot.ToolbotDash.OnEnter += ToolbotDash_OnEnter;
             //On.EntityStates.Toolbot.ToolbotDash.OnExit += ToolbotDash_OnExit;
             
-            new Hook(typeof(SkinDef).GetMethod("Apply"), new Action<Action<SkinDef, GameObject>, SkinDef, GameObject>(_DynamicSkinManager.SkinDefApply)).Apply();
+            new Hook(typeof(SkinDef).GetMethod("ApplyAsync"), new Func<Func<SkinDef, GameObject, List<AssetReferenceT<Material>>, List<AssetReferenceT<Mesh>>, int, IEnumerator>, SkinDef, GameObject, List<AssetReferenceT<Material>>, List<AssetReferenceT<Mesh>>, int, IEnumerator>(_DynamicSkinManager.SkinDefApply)).Apply();
             InitializeModifications();
         }
         
@@ -73,17 +74,17 @@ namespace SS2.Modules
         {
             AssetBundle chirrBundle = SS2Assets.GetAssetBundle(SS2Bundle.Chirr);
             
-			BeeChirrSkinAntennaRootRModification = new Modification("AntennaRootR.prefab", "Head", "ChirrBody", "STARN_SKIN_BEECHIRRSKIN_NAME", 6, AffectsBaseModel: true, chirrBundle);
-			BeeChirrSkinParticleBodyModification = new Modification("ParticleBody.prefab", "Head", "ChirrBody", "STARN_SKIN_BEECHIRRSKIN_NAME", -1, AffectsBaseModel: false, chirrBundle);
-			OrcidChirrAntennaRootOrchidModification = new Modification("AntennaRootOrchid.prefab", "Head", "ChirrBody", "STARN_SKIN_ORCIDCHIRR_NAME", 6, AffectsBaseModel: true, chirrBundle);
-			ChirrDemonParticleTorsoLowerModification = new Modification("ParticleTorsoLower.prefab", "Torso.1", "ChirrBody", "STARN_SKIN_CHIRRDEMON_NAME", -1, AffectsBaseModel: false, chirrBundle);
-			ChirrDemonParticleTorsoUpperModification = new Modification("ParticleTorsoUpper.prefab", "Torso.2", "ChirrBody", "STARN_SKIN_CHIRRDEMON_NAME", -2, AffectsBaseModel: false, chirrBundle);
-			ChirrDemonParticleWingLModification = new Modification("ParticleWingL.prefab", "Wing.1.l", "ChirrBody", "STARN_SKIN_CHIRRDEMON_NAME", -3, AffectsBaseModel: false, chirrBundle);
-			ChirrDemonParticleWingRModification = new Modification("ParticleWingR.prefab", "Wing.1.r", "ChirrBody", "STARN_SKIN_CHIRRDEMON_NAME", -4, AffectsBaseModel: false, chirrBundle);
-			ChirrAngelParticleHeadAngelModification = new Modification("ParticleHeadAngel.prefab", "Head", "ChirrBody", "STARN_SKIN_CHIRRANGEL_NAME", -1, AffectsBaseModel: false, chirrBundle);
+            BeeChirrSkinAntennaRootModification = new Modification("AntennaRootBee.prefab", "Head", "ChirrBody", "SS2_SKIN_CHIRR_BEE", 10, true, chirrBundle);
+            OrcidChirrAntennaRootOrchidModification = new Modification("AntennaRootOrchid.prefab", "Head", "ChirrBody", "SS2_SKIN_CHIRR_ORCHID", 10, true, chirrBundle);
+			BeeChirrSkinParticleBodyModification = new Modification("ParticleBody.prefab", "Head", "ChirrBody", "SS2_SKIN_CHIRR_BEE", -1, false, chirrBundle);
+			ChirrDemonParticleTorsoLowerModification = new Modification("ParticleTorsoLower.prefab", "Torso.1", "ChirrBody", "SS2_SKIN_CHIRR_DEMON", -1, false, chirrBundle);
+			ChirrDemonParticleTorsoUpperModification = new Modification("ParticleTorsoUpper.prefab", "Torso.2", "ChirrBody", "SS2_SKIN_CHIRR_DEMON", -2, false, chirrBundle);
+			ChirrDemonParticleWingLModification = new Modification("ParticleWingL.prefab", "Wing.1.l", "ChirrBody", "SS2_SKIN_CHIRR_DEMON", -3, false, chirrBundle);
+			ChirrDemonParticleWingRModification = new Modification("ParticleWingR.prefab", "Wing.1.r", "ChirrBody", "SS2_SKIN_CHIRR_DEMON", -4, false, chirrBundle);
+			ChirrAngelParticleHeadAngelModification = new Modification("ParticleHeadAngel.prefab", "Head", "ChirrBody", "SS2_SKIN_CHIRR_ANGEL", -1, false, chirrBundle);
            
             //InitializeDynamicBones
-            BeeChirrSkinAntennaRootRModification.dynamicBoneData = new DynamicBoneData("AntennaRootR", 0.1f, null, 0.02f, null, 0.35f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
+            BeeChirrSkinAntennaRootModification.dynamicBoneData = new DynamicBoneData("AntennaRootBee", 0.1f, null, 0.02f, null, 0.35f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
 			BeeChirrSkinParticleBodyModification.dynamicBoneData = new DynamicBoneData("ParticleRoot", 0.1f, null, 0.1f, null, 0.1f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
 			OrcidChirrAntennaRootOrchidModification.dynamicBoneData = new DynamicBoneData("AntennaRootOrchid", 0.569f, null, 0.4f, null, 0.1f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
 			ChirrDemonParticleTorsoLowerModification.dynamicBoneData = new DynamicBoneData("ParticleRootAAAA", 0f, null, 0f, null, 1f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
@@ -93,18 +94,17 @@ namespace SS2.Modules
 			ChirrAngelParticleHeadAngelModification.dynamicBoneData = new DynamicBoneData("ParticleAngelRoot", 0f, null, 0f, null, 1f, null, 0f, null, 0f, null, 0f, new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new Vector3(0f, 0f, 0f), new List<DynamicBoneColliderData>(), new List<string>(), DynamicBone.FreezeAxis.None);
             
             //AddModificationsToList
-            _DynamicSkinManager.AddModification("STARN_SKIN_BEECHIRRSKIN_NAME", 6, BeeChirrSkinAntennaRootRModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_BEECHIRRSKIN_NAME", -1, BeeChirrSkinParticleBodyModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_ORCIDCHIRR_NAME", 6, OrcidChirrAntennaRootOrchidModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_CHIRRDEMON_NAME", -1, ChirrDemonParticleTorsoLowerModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_CHIRRDEMON_NAME", -2, ChirrDemonParticleTorsoUpperModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_CHIRRDEMON_NAME", -3, ChirrDemonParticleWingLModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_CHIRRDEMON_NAME", -4, ChirrDemonParticleWingRModification);
-            _DynamicSkinManager.AddModification("STARN_SKIN_CHIRRANGEL_NAME", -1, ChirrAngelParticleHeadAngelModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_BEE", 10, BeeChirrSkinAntennaRootModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_BEE", -1, BeeChirrSkinParticleBodyModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_ORCHID", 10, OrcidChirrAntennaRootOrchidModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_DEMON", -1, ChirrDemonParticleTorsoLowerModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_DEMON", -2, ChirrDemonParticleTorsoUpperModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_DEMON", -3, ChirrDemonParticleWingLModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_DEMON", -4, ChirrDemonParticleWingRModification);
+            _DynamicSkinManager.AddModification("SS2_SKIN_CHIRR_ANGEL", -1, ChirrAngelParticleHeadAngelModification);
         }
 
-        //projectile catalog for FMJRampingPrefab or others ./,..
-        [SystemInitializer(typeof(ProjectileCatalog), typeof(EffectCatalog), typeof(SurvivorCatalog))]
+        [SystemInitializer(typeof(SurvivorCatalog), typeof(SkinCatalog))]
         public static void LoadBasePrefabs()
         {
             //mult gm
@@ -134,6 +134,11 @@ namespace SS2.Modules
             tracerCommandoShotgunSpecialist = SS2Assets.LoadAsset<GameObject>("TracerCommandoShotgunSpecialist", SS2Bundle.Vanilla);
             muzzleflashCommandoSpecialist = SS2Assets.LoadAsset<GameObject>("MuzzleflashCommandoSpecialist", SS2Bundle.Vanilla);
             hitsparkCommandoSpecialist = SS2Assets.LoadAsset<GameObject>("HitsparkCommandoShotgunSpecialist", SS2Bundle.Vanilla);
+            
+            _DynamicSkinManager.AddSkinDef(SS2Assets.LoadAsset<SkinDef>("skinChirrBee", SS2Bundle.Chirr));
+            _DynamicSkinManager.AddSkinDef(SS2Assets.LoadAsset<SkinDef>("skinChirrAngel", SS2Bundle.Chirr));
+            _DynamicSkinManager.AddSkinDef(SS2Assets.LoadAsset<SkinDef>("skinChirrDemon", SS2Bundle.Chirr));
+            _DynamicSkinManager.AddSkinDef(SS2Assets.LoadAsset<SkinDef>("skinChirrOrchid", SS2Bundle.Chirr));
         }
         
         public static string GetSkinName(CharacterBody body)
