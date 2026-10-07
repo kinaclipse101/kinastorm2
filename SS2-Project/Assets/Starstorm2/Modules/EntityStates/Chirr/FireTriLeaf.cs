@@ -12,6 +12,7 @@ namespace EntityStates.Chirr
     {
         public static GameObject projectilePrefab;
         public static GameObject projectilePrefabIsopod;
+        public static GameObject projectilePrefabAngel;
         public string soundString;
         public GameObject muzzleEffectPrefab = null;
 
@@ -94,7 +95,14 @@ namespace EntityStates.Chirr
                 float maxSpreadLerped = Mathf.Lerp(FireTriLeaf.minSpread, FireTriLeaf.maxSpread, (float)shotsFired / (float)numShots);
                 Ray aimRay = base.GetAimRay();
                 aimRay.direction = Util.ApplySpread(aimRay.direction, minSpreadLerped, maxSpreadLerped, 1f, pitchCoefficient);
-                ProjectileManager.instance.FireProjectile(SkinSpecificOverrides.GetSkinName(characterBody) == "SS2_SKIN_CHIRR_ISOPOD" ? projectilePrefabIsopod : projectilePrefab, aimRay.origin, 
+                GameObject projectilePrefabSkinned = SkinSpecificOverrides.GetSkinName(characterBody) switch
+                {
+                    "SS2_SKIN_CHIRR_ISOPOD" => projectilePrefabIsopod,
+                    "SS2_SKIN_CHIRR_ANGEL" => projectilePrefabAngel,
+                    _ => projectilePrefab
+                };
+                
+                ProjectileManager.instance.FireProjectile(projectilePrefabSkinned, aimRay.origin, 
                     Util.QuaternionSafeLookRotation(aimRay.direction), base.gameObject, 
                     this.damageStat * damageCoefficient, force, this.isCrit, damageType: new DamageTypeCombo(DamageType.Generic, DamageTypeExtended.Generic, DamageSource.Primary));
             }

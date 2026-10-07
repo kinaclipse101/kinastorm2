@@ -83,6 +83,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 169b6b0a3fa208ed291e51b7942728f4, type: 2}
   - {fileID: 11400000, guid: 2003208013d92a71a9ed895cff8d9afc, type: 2}
   - {fileID: 11400000, guid: 8e412548f63ab29ab94e57c9c7dcd4ea, type: 2}
+  - {fileID: 11400000, guid: 53cc607e20e83c78a93e3e1052e1271f, type: 2}
+  - {fileID: 2100000, guid: cae888317befe8d349ad9e42c636fb85, type: 2}
   bodyPrefab: {fileID: 5486166245231735535, guid: e2a9bcebef4867e4490dda09d2cf7bbe,
     type: 3}
   masterPrefab: {fileID: 1637141559875700, guid: 85ec816138527c64c88d351c4bdbffc7,

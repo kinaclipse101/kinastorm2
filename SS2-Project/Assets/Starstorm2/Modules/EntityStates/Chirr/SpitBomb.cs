@@ -12,6 +12,7 @@ namespace EntityStates.Chirr
 
 		public static GameObject projectilePrefab;
 		public static GameObject projectilePrefabIsopod;
+		public static GameObject projectilePrefabAngel;
 		public string soundString;
 		public GameObject muzzleEffectPrefab = null;
 		public string muzzleName;
@@ -81,9 +82,15 @@ namespace EntityStates.Chirr
                     }
 				}
 					
+				GameObject projectilePrefabSkinned = SkinSpecificOverrides.GetSkinName(characterBody) switch
+				{
+					"SS2_SKIN_CHIRR_ISOPOD" => projectilePrefabIsopod,
+					"SS2_SKIN_CHIRR_ANGEL" => projectilePrefabAngel,
+					_ => projectilePrefab
+				};
 
 				FireProjectileInfo fireProjectileInfo = default(FireProjectileInfo);
-				fireProjectileInfo.projectilePrefab = SkinSpecificOverrides.GetSkinName(characterBody) == "SS2_SKIN_CHIRR_ISOPOD" ? projectilePrefabIsopod : projectilePrefab;
+				fireProjectileInfo.projectilePrefab = projectilePrefabSkinned;
 				fireProjectileInfo.position = aimRay.origin;
 				fireProjectileInfo.rotation = Util.QuaternionSafeLookRotation(direction);
 				fireProjectileInfo.owner = base.gameObject;

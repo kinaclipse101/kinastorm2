@@ -1373,9 +1373,11 @@ MonoBehaviour:
   skinBefriendIndicatorTokens:
   - SS2_SKIN_CHIRR_DEFAULT
   - SS2_SKIN_CHIRR_ISOPOD
+  - SS2_SKIN_CHIRR_ANGEL
   skinBefriendIndicatorObjects:
   - {fileID: 7176679306960743933, guid: 3ae6902c739467c4097d16782bb1f6b8, type: 3}
   - {fileID: 7176679306960743933, guid: d46d57c61064a31cc900a904a90ee5a6, type: 3}
+  - {fileID: 7176679306960743933, guid: cbae777eccf7c523bbb70f96645057d0, type: 3}
   scepterIndicator: {fileID: 7176679306960743933, guid: 824f28409fb672345ba8485084abf603,
     type: 3}
   friendOwnership: {fileID: 0}

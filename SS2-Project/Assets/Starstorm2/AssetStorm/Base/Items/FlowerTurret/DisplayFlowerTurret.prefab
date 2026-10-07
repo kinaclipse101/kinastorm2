@@ -837,8 +837,10 @@ MonoBehaviour:
   itemDisplay: {fileID: 560585769608919035}
   skinBulbTokens:
   - SS2_SKIN_CHIRR_ISOPOD
+  - SS2_SKIN_CHIRR_ANGEL
   skinBulbMaterials:
   - {fileID: 2100000, guid: 0f7880f7216a63d1495cfeacb6f9381d, type: 2}
+  - {fileID: 2100000, guid: 86cef911b4a6f8b98b551e24a6eaa12a, type: 2}
 --- !u!1 &8923014097099011546
 GameObject:
   m_ObjectHideFlags: 0

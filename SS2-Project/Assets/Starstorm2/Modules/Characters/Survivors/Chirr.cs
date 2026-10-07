@@ -72,6 +72,11 @@ namespace SS2.Survivors
             BuffDef friendBuffDefIsopod = AssetCollection.FindAsset<BuffDef>("BuffChirrFriendIsopod");
             BuffOverlays.AddBuffOverlay(friendBuffDefIsopod, _matFriendOverlayIsopod);
             ChirrFriendHelper.BodyBehavior.skinBuffReplacements.Add("SS2_SKIN_CHIRR_ISOPOD", friendBuffDefIsopod);
+            
+            Material _matFriendOverlayAngel = AssetCollection.FindAsset<Material>("matFriendOverlayAngel");
+            BuffDef friendBuffDefAngel = AssetCollection.FindAsset<BuffDef>("BuffChirrFriendAngel");
+            BuffOverlays.AddBuffOverlay(friendBuffDefAngel, _matFriendOverlayAngel);
+            ChirrFriendHelper.BodyBehavior.skinBuffReplacements.Add("SS2_SKIN_CHIRR_ANGEL", friendBuffDefAngel);
         }    
 
         private void ModifyPrefab()
