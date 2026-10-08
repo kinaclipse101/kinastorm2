@@ -40,6 +40,12 @@
         "SS2_SKIN_CHIRR_DEFAULT": "Default",
         "SS2_SKIN_CHIRR_MASTERY": "Nocturnal",
         "SS2_SKIN_CHIRR_ISOPOD": "Isopod",
+        "SS2_SKIN_CHIRR_ANGEL": "Ethereal",
+        "SS2_SKIN_CHIRR_DEVIL": "Demon",
+        "SS2_SKIN_CHIRR_ORCHID": "Orchid",
+        "SS2_SKIN_CHIRR_BEE": "Pollen",
+        "SS2_SKIN_CHIRR_BOT": "CH1R",
+        "SS2_SKIN_CHIRR_DROWNED": "Drowned",
 
         "SS2_CHIRR_LEASH_NAME": "Natural Sync",
         "SS2_CHIRR_LEASH_DESCRIPTION": "Tap to bring your ally to you. Hold to <style=cIsHealth>siphon health</style> from your friend.",

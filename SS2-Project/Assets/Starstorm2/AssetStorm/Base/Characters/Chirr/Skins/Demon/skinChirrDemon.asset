@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: a041ad18c82981244b8560c66807d967, type: 3}
   nameToken: SS2_SKIN_CHIRR_DEMON
   unlockableName: 
-  unlockableDef: {fileID: 11400000, guid: 566f7f275eab5a1aa92a827144c9e214, type: 2}
+  unlockableDef: {fileID: 11400000, guid: 3b554b14320eeb76d9cbfee735f25d44, type: 2}
   rootObject: {fileID: 2043620420204132909, guid: e2a9bcebef4867e4490dda09d2cf7bbe,
     type: 3}
   skinDefParamsAddress:

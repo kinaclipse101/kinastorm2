@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using RoR2;
 using SS2.Modules;
+using SS2.Unlocks.Chirr;
 
 namespace SS2.Components
 {
@@ -137,6 +138,13 @@ namespace SS2.Components
                 {
 					Ray aimRay = new Ray(this.inputBank.aimOrigin, this.inputBank.aimDirection);
 					this.SearchForTarget(aimRay);
+					if (ChirrDevilAchievement.active)
+					{
+						HurtBox altar = ChirrDevilAchievement.SearchForSkeletonAltar(aimRay, search);
+						if (altar)
+							trackingTarget = altar;
+					}
+						
 					this.indicator.targetTransform = (this.trackingTarget && this.ShouldShowTracker() ? this.trackingTarget.transform : null);
 				}
 				else
@@ -161,15 +169,14 @@ namespace SS2.Components
 			this.search.FilterOutGameObject(base.gameObject);
 			HurtBox[] hurtBoxes = this.search.GetResults().ToArray();
 			foreach(HurtBox hurtBox in hurtBoxes)
-            {
+			{
 				if(hurtBox.healthComponent && CheckBody(hurtBox.healthComponent.body))
-                {					
+				{					
 					this.trackingTarget = hurtBox;
 					return;					
-                }
-            }
+				}
+			}
 			this.trackingTarget = null;
 		}
-
 	}
 }

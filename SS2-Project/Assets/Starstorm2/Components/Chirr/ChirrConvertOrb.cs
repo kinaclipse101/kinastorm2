@@ -12,7 +12,12 @@ namespace SS2.Components
 
         public override GameObject GetOrbEffect()
         {
-            return SkinSpecificOverrides.GetSkinName(tracker.characterBody) == "SS2_SKIN_CHIRR_ISOPOD" ? SS2Assets.LoadAsset<GameObject>("BefriendOrbEffectIsopod", SS2Bundle.Chirr) : UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Croco/CrocoDiseaseOrbEffect.prefab").WaitForCompletion();
+            return SkinSpecificOverrides.GetSkinName(tracker.characterBody) switch
+            {
+                "SS2_SKIN_CHIRR_ISOPOD" => SS2Assets.LoadAsset<GameObject>("BefriendOrbEffectIsopod", SS2Bundle.Chirr),
+                "SS2_SKIN_CHIRR_ANGEL" => SS2Assets.LoadAsset<GameObject>("BefriendOrbEffectAngel", SS2Bundle.Chirr),
+                _ => UnityEngine.AddressableAssets.Addressables.LoadAssetAsync<GameObject>("RoR2/Base/Croco/CrocoDiseaseOrbEffect.prefab").WaitForCompletion()
+            };
         }
 
         public override void OnArrival()
@@ -22,6 +27,14 @@ namespace SS2.Components
 
             if(this.tracker && this.tracker.friendOwnership)
             {
+                if (target.healthComponent.body.baseNameToken == "ALTARSKELETON_BODY_NAME")
+                {
+                    BefriendAltarController bac = target.healthComponent.body.gameObject.AddComponent<BefriendAltarController>();
+                    bac.chirrTracker = tracker;
+                    bac.Befriend();
+                    return;
+                }
+                
                 ConvertBehavior convertBehavior = this.target.healthComponent.gameObject.GetComponent<ConvertBehavior>();
                 if(!convertBehavior) convertBehavior = this.target.healthComponent.gameObject.AddComponent<ConvertBehavior>();
                 convertBehavior.lifetime = this.buffDuration;
@@ -39,7 +52,6 @@ namespace SS2.Components
                 };
                 DotController.InflictDot(ref inflictDotInfo);
             }
-
         }
 
         public class ConvertBehavior : MonoBehaviour, IOnTakeDamageServerReceiver
@@ -69,16 +81,13 @@ namespace SS2.Components
                 // MIND CONTROLLING PLAYER WOULD BE FUNNY.... but alas...
                 if(damageReport.victimBody != null && damageReport.victimBody.HasBuff(SS2Content.Buffs.BuffChirrConvert) && !damageReport.victimBody.isPlayerControlled && damageReport.victimBody.healthComponent.combinedHealthFraction < convertHealthFraction)
                 {
-                    
                     if (chirrFriendTracker && chirrFriendTracker.friendOwnership)
                     {
                         chirrFriendTracker.friendOwnership.AddFriend(damageReport.victimMaster);
                         Destroy(this);
                     }
                 }
-                
             }
         }
-
     }
 }

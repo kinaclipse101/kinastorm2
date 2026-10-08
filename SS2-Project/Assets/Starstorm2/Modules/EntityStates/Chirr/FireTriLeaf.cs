@@ -13,6 +13,7 @@ namespace EntityStates.Chirr
         public static GameObject projectilePrefab;
         public static GameObject projectilePrefabIsopod;
         public static GameObject projectilePrefabAngel;
+        public static GameObject projectilePrefabDemon;
         public string soundString;
         public GameObject muzzleEffectPrefab = null;
 
@@ -99,6 +100,7 @@ namespace EntityStates.Chirr
                 {
                     "SS2_SKIN_CHIRR_ISOPOD" => projectilePrefabIsopod,
                     "SS2_SKIN_CHIRR_ANGEL" => projectilePrefabAngel,
+                    "SS2_SKIN_CHIRR_DEMON" => projectilePrefabDemon,
                     _ => projectilePrefab
                 };
                 
